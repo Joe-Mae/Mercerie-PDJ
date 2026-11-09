@@ -1,0 +1,38 @@
+{
+  "name": "mercerie-pdj",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@11.17.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @mercerie/web",
+    "build": "npm run build --workspace @mercerie/web",
+    "preview": "npm run preview --workspace @mercerie/web",
+    "seed:users": "node --env-file-if-exists=.env.local --env-file-if-exists=.env scripts/seed-users.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:pwa": "playwright test --config playwright.pwa.config.ts",
+    "typecheck": "tsc -p packages/core/tsconfig.json --noEmit && tsc -p packages/db/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.sw.json --noEmit && tsc -p supabase/functions/tsconfig.json --noEmit && tsc -p tsconfig.e2e.json --noEmit",
+    "vapid:generate": "node scripts/generate-vapid-keys.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.15",
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6",
+    "@vitest/coverage-v8": "^5.1.0",
+    "fake-indexeddb": "^6.2.7",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "vitest": "^5.1.0"
+  }
+}
